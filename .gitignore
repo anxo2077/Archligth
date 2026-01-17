@@ -1,0 +1,33 @@
+# Minecraft Worlds - Archivos pesados
+world/
+world_nether/
+world_the_end/
+world*/
+*/world*
+*.mca
+*.dat
+*.dat_old
+
+# Logs
+*.log
+logs/
+server.log
+latest.log
+crash-reports/
+
+# Backups
+backups/
+*.zip
+*.tar.gz
+*.tar
+
+# Caches
+.cache/
+cache/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
