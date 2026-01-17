@@ -1,0 +1,37 @@
+name: Deploy Archlight Server
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+    paths:
+      - 'mods/**'
+      - 'config/**'
+      - 'server-files/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    # Solo ejecuta si la PR fue mergeada (no cerrada sin mergear)
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Deploy to Archlight Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: 22
+          script: |
+            echo "=== Iniciando deployment automático ==="
+            cd ~/archlight-server
+            echo "Actualizando repositorio..."
+            git pull origin main
+            echo "Ejecutando script de actualización..."
+            bash scripts/update-server.sh
+            echo "=== Deployment completado ==="
