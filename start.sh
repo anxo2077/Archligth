@@ -1,0 +1,1 @@
+java -Xmx3G -Xms2G -jar archlight-server-1.21.1.jar
